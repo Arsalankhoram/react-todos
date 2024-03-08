@@ -11,19 +11,16 @@ export default function Todos() {
                 id: ulid(),
                 title: "Learning React",
                 status: false,
-                isEditing: false
             },
             {
                 id: ulid(),
                 title: "UI Design",
                 status: true,
-                isEditing: false
             },
             {
                 id: ulid(),
                 title: "Go to Gym",
                 status: false,
-                isEditing: false
             }
         ]
     )
@@ -45,22 +42,12 @@ export default function Todos() {
 
     }
 
-    const editRequestHandler = (todoId) => {
-        let newTodos = Todos.map((todo) => {
-            if (todoId == todo.id) {
-                todo.isEditing = true
-            }
-            return todo;
-        });
-        setTodos(newTodos);
-    }
 
     const editApproveHandler = (target, todoId) => {
-        if (target.key == "Enter" && target.target.type == "text") {
+        if (target.key == "Enter") {
             let newTodos = Todos.map((todo) => {
                 if (todoId == todo.id) {
                     todo.title = target.target.value
-                    todo.isEditing = false
                 }
                 return todo;
             });
@@ -76,7 +63,6 @@ export default function Todos() {
                     id: ulid(),
                     title: target.value,
                     status: false,
-                    isEditing: false
                 }
             ])
             target.value = null
@@ -93,7 +79,7 @@ export default function Todos() {
                 <input type="text" onKeyDown={enterHandler} placeholder="What needs to be done today?"
                     className="w-full px-2 py-3 border rounded outline-none border-grey-600" />
             </div>
-            <TodoSection editApproveHandler={editApproveHandler} editRequestHandler={editRequestHandler} deleteHandler={deleteHandler} checkHandler={checkHandler} todos={Todos} />
+            <TodoSection editApproveHandler={editApproveHandler} deleteHandler={deleteHandler} checkHandler={checkHandler} todos={Todos} />
         </div>
 
     )
