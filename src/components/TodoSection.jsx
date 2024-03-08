@@ -1,10 +1,6 @@
 import TodoItem from "./TodoItem";
 
 export default function TodoSection({ todos, deleteHandler, checkHandler, editRequestHandler,editApproveHandler }) {
-
-
-
-
     return (
         <ul className="list-reset">
             {todos.map((todo) => {

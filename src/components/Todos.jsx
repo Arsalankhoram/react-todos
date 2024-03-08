@@ -9,19 +9,19 @@ export default function Todos() {
         [
             {
                 id: ulid(),
-                title: "learn react",
+                title: "Learning React",
                 status: false,
                 isEditing: false
             },
             {
                 id: ulid(),
-                title: "erfan class",
+                title: "UI Design",
                 status: true,
                 isEditing: false
             },
             {
                 id: ulid(),
-                title: "ui design",
+                title: "Go to Gym",
                 status: false,
                 isEditing: false
             }
