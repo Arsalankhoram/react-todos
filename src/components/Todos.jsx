@@ -35,8 +35,6 @@ export default function Todos() {
             return todo;
         });
         setTodos(newTodos);
-
-
     }
 
     const deleteHandler = (todoId) => {
