@@ -12,9 +12,11 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
     }
     return (
         <li className=" flex items-center justify-between px-2 py-6 border-b ">
-            <div className="w-full">
-                {
-                    editMode ?
+
+            {
+                editMode ?
+                    <>
+
                         <input type="text" value={todoValue} className="border-2 rounded p-1 w-full"
                             onChange={(target) => {
                                 setTodoValue(target.target.value)
@@ -25,9 +27,11 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
 
                             }
                             } />
-
-                        :
-                        <>
+                        <DeleteIcon onClickHandler={() => setEditMode(false)} />
+                    </>
+                    :
+                    <>
+                        <div>
                             <input
                                 type="checkbox"
                                 checked={status}
@@ -36,15 +40,18 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
                                 }}
                             />
                             <p className={status ? "inline-block mt-1 ml-2 text-gray-600 line-through" : "inline-block mt-1 ml-2 text-gray-600"}>{title}</p>
-                        </>
-                }
+                        </div>
+
+                        <button type="button" className="flex items-center space-x-1">
+                            <EditIcon onClickHandler={editHandler} />
+                            <DeleteIcon onClickHandler={() => deleteHandler(id)} />
+                        </button>
+                    </>
+            }
 
 
-            </div>
-            <button type="button" className="flex items-center space-x-1">
-                <EditIcon onClickHandler={editHandler} />
-                <DeleteIcon onClickHandler={() => deleteHandler(id)} />
-            </button>
+
+
         </li>
     )
 }
