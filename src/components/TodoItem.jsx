@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import DeleteIcon from "./Icons/DeleteIcon";
 import EditIcon from "./Icons/EditIcon";
 
@@ -6,18 +6,21 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
     const [editMode, setEditMode] = useState(false)
     const [todoValue, setTodoValue] = useState(title)
 
-
+    let TodoTextInput = useRef(null)
     const editHandler = () => {
+        console.log(TodoTextInput);
         setEditMode(true)
     }
     return (
         <li className=" flex items-center justify-between px-2 py-6 border-b ">
-
             {
                 editMode ?
                     <>
-
-                        <input type="text" value={todoValue} className="border-2 rounded p-1 w-full"
+                        <input
+                            ref={TodoTextInput}
+                            type="text"
+                            value={todoValue}
+                            className="border-2 rounded p-1 w-full"
                             onChange={(target) => {
                                 setTodoValue(target.target.value)
                             }}
@@ -26,7 +29,8 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
                                 target.key == "Enter" ? setEditMode(false) : "";
 
                             }
-                            } />
+                            }
+                        />
                         <DeleteIcon onClickHandler={() => setEditMode(false)} />
                     </>
                     :
@@ -48,10 +52,6 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
                         </button>
                     </>
             }
-
-
-
-
         </li>
     )
 }
