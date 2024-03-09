@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function TodoTextInput({ id, todoValue, editApproveHandler, setEditMode, setTodoValue }) {
+export default function TodoTextInput({ id, todoValue, editApproveHandler, setEditMode }) {
     let TodoTextInputRef = useRef(null)
 
     useEffect(() => {
@@ -11,11 +11,8 @@ export default function TodoTextInput({ id, todoValue, editApproveHandler, setEd
         <input
             ref={TodoTextInputRef}
             type="text"
-            value={todoValue}
+            {...todoValue}
             className="border-2 rounded p-1 w-full"
-            onChange={(target) => {
-                setTodoValue(target.target.value)
-            }}
             onKeyDown={(target) => {
                 editApproveHandler(target, id);
                 target.key == "Enter" ? setEditMode(false) : "";
