@@ -17,7 +17,6 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
                     editMode ?
                         <input type="text" value={todoValue} className="border-2 rounded p-1 w-full"
                             onChange={(target) => {
-                                checkHandler(id);
                                 setTodoValue(target.target.value)
                             }}
                             onKeyDown={(target) => {

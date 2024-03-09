@@ -1,29 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoSection from "./TodoSection";
 import { ulid } from 'ulid'
 
-
 export default function Todos() {
-
     const [Todos, setTodos] = useState(
         [
-            {
-                id: ulid(),
-                title: "Learning React",
-                status: false,
-            },
-            {
-                id: ulid(),
-                title: "UI Design",
-                status: true,
-            },
-            {
-                id: ulid(),
-                title: "Go to Gym",
-                status: false,
-            }
+
         ]
     )
+
+    useEffect(() => {
+        setTodos(JSON.parse(localStorage.todos))
+    }, [])
+
+    useEffect(() => {
+        localStorage.todos = JSON.stringify(Todos)
+    }, [Todos])
+
     const checkHandler = (todoId) => {
         let newTodos = Todos.map((todo) => {
             if (todoId == todo.id) {
@@ -41,7 +34,6 @@ export default function Todos() {
         setTodos(newTodos);
 
     }
-
 
     const editApproveHandler = (target, todoId) => {
         if (target.key == "Enter") {
@@ -68,7 +60,6 @@ export default function Todos() {
             target.value = null
         }
     }
-
 
     return (
         <div className="w-full px-4 py-8 mx-auto shadow lg:w-1/3  bg-white">
