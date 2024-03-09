@@ -10,6 +10,7 @@ export default function Todos() {
     )
 
     useEffect(() => {
+        if(localStorage.todos)
         setTodos(JSON.parse(localStorage.todos))
     }, [])
 
