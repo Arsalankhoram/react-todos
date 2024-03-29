@@ -4,10 +4,9 @@ import TodoTextInput from "./TodoTextInput";
 import TodoCheckbox from "./TodoCheckbox";
 import useTextInputChange from "../hooks/useTextInputChange";
 
-export default function TodoItem({ id, title, status, deleteHandler, checkHandler, editApproveHandler }) {
+export default function TodoItem({ id, title, status }) {
     const [editMode, setEditMode] = useState(false)
     const todoValue = useTextInputChange(title)
-
     const editHandler = () => {
         setEditMode(true)
     }
@@ -18,11 +17,11 @@ export default function TodoItem({ id, title, status, deleteHandler, checkHandle
                 editMode
                     ?
                     <>
-                        <TodoTextInput id={id} todoValue={todoValue} editApproveHandler={editApproveHandler} setEditMode={setEditMode} />
+                        <TodoTextInput id={id} todoValue={todoValue} setEditMode={setEditMode} />
                         <DeleteIcon onClickHandler={() => setEditMode(false)} />
                     </>
                     :
-                    < TodoCheckbox id={id} title={title} status={status} checkHandler={checkHandler} editHandler={editHandler} deleteHandler={deleteHandler} />
+                    < TodoCheckbox id={id} title={title} status={status} editHandler={editHandler} />
             }
         </li>
     )

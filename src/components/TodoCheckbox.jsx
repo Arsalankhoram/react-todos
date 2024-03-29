@@ -1,7 +1,10 @@
 import EditIcon from "../Icons/EditIcon";
 import DeleteIcon from "../Icons/DeleteIcon";
+import { useContext } from "react";
+import { TodoFunctions } from "../contexts/TodoContext";
 
-export default function TodoCheckbox({ id, title, status, checkHandler, editHandler, deleteHandler }) {
+export default function TodoCheckbox({ id, title, status, editHandler }) {
+    const { checkHandler, deleteHandler } = useContext(TodoFunctions)
 
     return (
         <>

@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
+import { useContext } from "react";
+import { TodoFunctions } from "../contexts/TodoContext";
 
-export default function TodoTextInput({ id, todoValue, editApproveHandler, setEditMode }) {
+export default function TodoTextInput({ id, todoValue, setEditMode }) {
+    const { editApproveHandler } = useContext(TodoFunctions)
     let TodoTextInputRef = useRef(null)
 
     useEffect(() => {
