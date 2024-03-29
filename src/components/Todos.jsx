@@ -1,37 +1,37 @@
 import { useEffect, useState } from "react";
 import TodoSection from "./TodoSection";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../hooks/useFetch.js"
+
 
 export default function Todos() {
-    const [Todos, setTodos] = useState(
-        [
+    const [Todos, setTodos] = useState([])
 
-        ]
-    )
+    const UpdateTodo = () => {
+        useFetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/`, 'GET')
+            .then((data) => {
+                setTodos(data)
+            })
+    }
+
+    useEffect(() => {
+        UpdateTodo()
+    }, [])
 
     const checkHandler = (todoId, todoStatus) => {
-        fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ status: !todoStatus })
-        })
+        useFetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, 'PUT', { status: !todoStatus })
+            .then(() => UpdateTodo())
     }
 
     const deleteHandler = (todoId) => {
-        fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
-            method: 'DELETE',
-        })
+        useFetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, 'DELETE')
+            .then(() => UpdateTodo())
     }
 
     const editApproveHandler = (target, todoId) => {
         if (target.key == "Enter") {
-            fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
-                method: 'PUT',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({ title: target.target.value })
-            })
+            useFetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, 'PUT', { title: target.target.value })
+                .then(() => UpdateTodo())
         }
-
     }
 
     const enterHandler = ({ key, target }) => {
@@ -40,26 +40,11 @@ export default function Todos() {
                 title: target.value,
                 status: false,
             }
-            fetch('https://6606ae80be53febb857e6b20.mockapi.io/todos/', {
-                method: 'POST',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(newItem)
-            })
+            useFetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/`, 'POST', newItem)
+                .then(() => UpdateTodo())
             target.value = null
         }
     }
-
-
-    useEffect(() => {
-        fetch("https://6606ae80be53febb857e6b20.mockapi.io/todos", {
-            method: "GET",
-            headers: { 'content-type': 'application/json' },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setTodos(data)
-            })
-    }, [checkHandler, deleteHandler, editApproveHandler])
 
     return (
         <div className="w-full px-4 py-8 mx-auto shadow lg:w-1/3  bg-white">

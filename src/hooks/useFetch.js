@@ -1,6 +1,4 @@
 export default async function useFetch(url, method, data = null, contentType = 'application/json') {
-    console.log(url, method, data, contentType);
-    console.log(typeof (data));
     let result;
     switch (method) {
         case "GET":
@@ -33,6 +31,7 @@ export default async function useFetch(url, method, data = null, contentType = '
             result = fetch(url, {
                 method: method,
             })
+            return result
             break
     }
 }
