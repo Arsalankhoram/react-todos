@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import TodoSection from "./TodoSection";
-import { ulid } from 'ulid'
 import useFetch from "../hooks/useFetch";
 
 export default function Todos() {
@@ -10,24 +9,27 @@ export default function Todos() {
         ]
     )
 
-    const checkHandler = (todoId) => {
-        let newTodos = Todos.map((todo) => {
-            if (todoId == todo.id) {
-                todo.status = !todo.status
-            }
-            return todo;
-        });
-        setTodos(newTodos);
-        // useFetch(`https://65ee12c408706c584d9b10cf.mockapi.io/todos/${todoId}`, "GET", { status: target.target.value });
+    const checkHandler = (todoId, todoStatus) => {
+        fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ status: !todoStatus })
+        })
     }
 
     const deleteHandler = (todoId) => {
-        useFetch(`https://65ee12c408706c584d9b10cf.mockapi.io/todos/${todoId}`, "DELETE");
+        fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
+            method: 'DELETE',
+        })
     }
 
     const editApproveHandler = (target, todoId) => {
         if (target.key == "Enter") {
-            useFetch(`https://65ee12c408706c584d9b10cf.mockapi.io/todos/${todoId}`, "PUT", { title: target.target.value });
+            fetch(`https://6606ae80be53febb857e6b20.mockapi.io/todos/${todoId}`, {
+                method: 'PUT',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ title: target.target.value })
+            })
         }
 
     }
@@ -38,19 +40,26 @@ export default function Todos() {
                 title: target.value,
                 status: false,
             }
-            useFetch("https://65ee12c408706c584d9b10cf.mockapi.io/todos", "POST", newItem);
+            fetch('https://6606ae80be53febb857e6b20.mockapi.io/todos/', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(newItem)
+            })
             target.value = null
         }
     }
 
+
     useEffect(() => {
-        let result = useFetch("https://65ee12c408706c584d9b10cf.mockapi.io/todos", "GET");
-        result.then((data) => setTodos(data))
-        console.log("hi");
-        return () => enterHandler()
-    }, [enterHandler])
-
-
+        fetch("https://6606ae80be53febb857e6b20.mockapi.io/todos", {
+            method: "GET",
+            headers: { 'content-type': 'application/json' },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setTodos(data)
+            })
+    }, [checkHandler, deleteHandler, editApproveHandler])
 
     return (
         <div className="w-full px-4 py-8 mx-auto shadow lg:w-1/3  bg-white">

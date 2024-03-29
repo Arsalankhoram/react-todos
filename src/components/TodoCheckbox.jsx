@@ -10,7 +10,7 @@ export default function TodoCheckbox({ id, title, status, checkHandler, editHand
                     type="checkbox"
                     checked={status}
                     onChange={() => {
-                        checkHandler(id);
+                        checkHandler(id , status);
                     }}
                 />
                 <p className={status ? "inline-block mt-1 ml-2 text-gray-600 line-through" : "inline-block mt-1 ml-2 text-gray-600"}>{title}</p>
