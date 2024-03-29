@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DeleteIcon from "./Icons/DeleteIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
 import TodoTextInput from "./TodoTextInput";
 import TodoCheckbox from "./TodoCheckbox";
 import useTextInputChange from "../hooks/useTextInputChange";

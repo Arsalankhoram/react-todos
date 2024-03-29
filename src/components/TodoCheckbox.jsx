@@ -1,5 +1,5 @@
-import EditIcon from "./Icons/EditIcon";
-import DeleteIcon from "./Icons/DeleteIcon";
+import EditIcon from "../Icons/EditIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
 
 export default function TodoCheckbox({ id, title, status, checkHandler, editHandler, deleteHandler }) {
 
@@ -10,7 +10,7 @@ export default function TodoCheckbox({ id, title, status, checkHandler, editHand
                     type="checkbox"
                     checked={status}
                     onChange={() => {
-                        checkHandler(id , status);
+                        checkHandler(id, status);
                     }}
                 />
                 <p className={status ? "inline-block mt-1 ml-2 text-gray-600 line-through" : "inline-block mt-1 ml-2 text-gray-600"}>{title}</p>
